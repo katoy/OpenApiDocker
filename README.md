@@ -24,6 +24,33 @@ cloneしたプロジェクトのディレクトリに移動し、下記コマン
 
 ## APIドキュメントの作成、編集
 
+### ファイル構成
+
+```shell
+dest
+├── README.md
+├── index.html
+└── openapi
+    └── openapi.yaml
+src
+├── index.html
+├── index.yaml
+├── info
+│   └── index.yaml
+└── merged.yaml
+
+merge.sh
+```
+
+src/**/*.yaml を編集していきます。
+
+./merge.sh を実行すると、これらの yaml ファイルをマージして、html などを生成します。
+
+src/merged.html : マージ結果 (このファイルを stoplitht で閲覧して、error/warnig を見つけることが可能です)
+
+dest/index.html (merged.yaml から redoc-cli で生成した html)
+dest.openapi/openapi.yaml  (merged.yaml openapi-generator-cli で生成した yaml)
+
 /openapi/index.yamlにAPI仕様を記述する。（サンプルAPI記述済み）
 このファイルを編集すればSwaggerUI、ReDocで表示確認可能。
 
@@ -38,9 +65,12 @@ merged.yamlは結合結果のファイルなので、このファイルを直接
 
 UIは、SwaggerUIとReDocの両方で表示可能なので、好みの方を利用する。
 SwaggerUI `http://localhost:8011`
-ReDoc `http://localhost:8012`
+ReDoc `http://localhost:9011`
+静的 htm の閲覧； `open dest/index.html`
 
-ホストPCでyamlファイルを編集後、ブラウザリロードで画面に反映される。
+<s>ホストPCでyamlファイルを編集後、ブラウザリロードで画面に反映される。</s>
+(src/**.yaml を編集したら、自動的に src/merged.yaml が再生されることを目指しているが、現時点では動作していない。
+そこで、ターミナルから **./merge.sh** を実行して merged.yaml を生成するようにしている)
 
 ## APIドキュメントを静的HTMLで出力
 
