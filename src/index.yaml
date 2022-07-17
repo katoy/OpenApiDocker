@@ -6,7 +6,7 @@ servers:
 paths:
   /pets:
     get:
-      summary: List all pets
+      summary: ペットの一覧
       operationId: listPets
       tags:
         - pets
@@ -37,7 +37,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
     post:
-      summary: Create a pet
+      summary: ペットの登録
       operationId: createPets
       tags:
         - pets
@@ -52,7 +52,7 @@ paths:
                 $ref: "#/components/schemas/Error"
   /pets/{petId}:
     get:
-      summary: Info for a specific pet
+      summary: 指定されたペットの詳細情報
       operationId: showPetById
       tags:
         - pets

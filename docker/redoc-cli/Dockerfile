@@ -5,7 +5,7 @@ FROM node:alpine
 
 RUN npm install -g redoc-cli
 
-WORKDIR /src
+WORKDIR /dest
 EXPOSE 8080
 
 ENTRYPOINT ["redoc-cli"]

@@ -5,14 +5,14 @@ services:
     ports:
       - 8010:8000
     volumes:
-      - ./src/merged.yaml:/merged.yaml
+      - ./dest/merged.yaml:/merged.yaml
     entrypoint: /usr/local/bin/apisprout /merged.yaml --watch
   swagger-ui:
     image: swaggerapi/swagger-ui
     ports:
       - 8011:8080
     volumes:
-      - ./src/merged.yaml:/usr/share/nginx/html/merged.yaml
+      - ./dest/merged.yaml:/usr/share/nginx/html/merged.yaml
     environment:
       API_URL: merged.yaml
   redoc:
@@ -20,7 +20,7 @@ services:
     ports:
       - 9011:80
     volumes:
-      - ./src/merged.yaml:/usr/share/nginx/html/merged.yaml
+      - ./dest/merged.yaml:/usr/share/nginx/html/merged.yaml
     environment:
       SPEC_URL: merged.yaml
   redoc-cli:
@@ -30,10 +30,11 @@ services:
       - ./dest:/dest
   swagger-merger:
     build: ./docker/swagger-merger
+    command: >
+      watch 'swagger-merger -i /src/index.yaml -o /dest/merged.yaml' /src/
     volumes:
-      - ./docker/swagger-merger/watch.js:/watch.js
       - ./src:/src
       - ./dest:/dest
     environment:
       NODE_PATH: /usr/local/lib/node_modules
-    entrypoint: node ../watch
+    # entrypoint: node ../watch

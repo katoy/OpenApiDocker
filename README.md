@@ -30,26 +30,27 @@ cloneしたプロジェクトのディレクトリに移動し、下記コマン
 dest
 ├── README.md
 ├── index.html
+├── merged.yaml
 └── openapi
     └── openapi.yaml
 src
-├── index.html
 ├── index.yaml
 ├── info
 │   └── index.yaml
 └── merged.yaml
 
 merge.sh
+clean-merged.sh
 ```
 
 src/**/*.yaml を編集していきます。
 
 ./merge.sh を実行すると、これらの yaml ファイルをマージして、html などを生成します。
 
-src/merged.html : マージ結果 (このファイルを stoplitht で閲覧して、error/warnig を見つけることが可能です)
+dest/merged.html: マージ結果 (このファイルを stoplight 等で閲覧して、error/warnig を見つけることが可能です)
 
-dest/index.html (merged.yaml から redoc-cli で生成した html)
-dest.openapi/openapi.yaml  (merged.yaml openapi-generator-cli で生成した yaml)
+dest/index.html： merged.yaml から redoc-cli で生成した html
+dest/openapi/openapi.yaml: merged.yaml openapi-generator-cli で生成した yaml
 
 /openapi/index.yamlにAPI仕様を記述する。（サンプルAPI記述済み）
 このファイルを編集すればSwaggerUI、ReDocで表示確認可能。
@@ -68,9 +69,10 @@ SwaggerUI `http://localhost:8011`
 ReDoc `http://localhost:9011`
 静的 htm の閲覧； `open dest/index.html`
 
-<s>ホストPCでyamlファイルを編集後、ブラウザリロードで画面に反映される。</s>
-(src/**.yaml を編集したら、自動的に src/merged.yaml が再生されることを目指しているが、現時点では動作していない。
-そこで、ターミナルから **./merge.sh** を実行して merged.yaml を生成するようにしている)
+ホストPCでyamlファイルを編集後、ブラウザリロードで画面に反映される。
+
+ターミナルから　`./merge.sh` を実行して merged.yaml を生成することもできる。
+kの場合、openapi-generator-cli　をつかって dest/openapi/openapi.yaml 生成もする。(詳細な書式チェックも実行される)
 
 ## APIドキュメントを静的HTMLで出力
 
@@ -92,3 +94,13 @@ APIモックはAPISproutを使用。
 サンプルAPIドキュメントの場合、`Prefer: status=default`と記述すればエラーレスポンスが返却される。
 
 ※OpenAPI3の動作は確認済みだがOpenAPI2は未確認なので、3を推奨
+## 参考
+
+* <https://qiita.com/minato-naka/items/3b0bcf0788a2150f3171>
+  OpenAPI（Swagger）のAPI開発Docker環境を整備した（yaml分割編集、SwaggerUI表示、モックサーバー、静的HTML出力）
+
+* <https://github.com/MinatoNaka/OpenApiDocker>
+  fork 元のレポジトリー
+
+* <https://techblog.finatext.com/swagger-merger-5e29bd27907>
+  swagger-merger を用いた大規模API開発における Swagger 運用
