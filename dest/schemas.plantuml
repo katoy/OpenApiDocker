@@ -1,0 +1,18 @@
+@startuml "schema"
+
+title Swagger Petstore Schemas Diagram
+
+entity Error {
+    * code: Integer
+    * message: String
+}
+
+entity Pet {
+    * id: Long
+    * name: String
+    tag: String
+}
+
+
+
+@enduml

@@ -28,11 +28,15 @@ cloneしたプロジェクトのディレクトリに移動し、下記コマン
 
 ```shell
 dest
+dest
 ├── README.md
+├── index.adoc
 ├── index.html
 ├── merged.yaml
-└── openapi
-    └── openapi.yaml
+├── openapi
+│   └── openapi.yaml
+└── schemas.plantuml
+
 src
 ├── index.yaml
 ├── info
@@ -47,10 +51,14 @@ src/**/*.yaml を編集していきます。
 
 ./merge.sh を実行すると、これらの yaml ファイルをマージして、html などを生成します。
 
-dest/merged.html: マージ結果 (このファイルを stoplight 等で閲覧して、error/warnig を見つけることが可能です)
+- dest/merged.html: マージ結果 (このファイルを stoplight 等で閲覧して、error/warnig を見つけることが可能です)
 
-dest/index.html： merged.yaml から redoc-cli で生成した html
+- dest/index.html： merged.yaml から redoc-cli で生成した html
 dest/openapi/openapi.yaml: merged.yaml openapi-generator-cli で生成した yaml
+
+- dest/index.pdf: merged.yaml から ascidddoc を生成して、それを pdf にしたもの
+
+- dest/schema.plantuml: merged.yaml から openapi-generator-cli で plantuml ファイルを出力したもの。ファイルの先頭業を少し編集するしないと prevew できない (@startuml -> @startuml "schema" みたいに編集する)
 
 /openapi/index.yamlにAPI仕様を記述する。（サンプルAPI記述済み）
 このファイルを編集すればSwaggerUI、ReDocで表示確認可能。
